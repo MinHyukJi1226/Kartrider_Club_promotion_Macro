@@ -1,5 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common import keys
 from selenium.webdriver.common.keys import Keys
+import time
 
 driver = webdriver.Chrome()
 url = 'https://kart.nexon.com/Kart/Guild/Story/List.aspx'
@@ -17,5 +19,11 @@ print('비밀번호를 입력해주세요.')
 userPw = input()
 
 driver.find_element_by_id('txtNexonID').send_keys(userId)
-driver.find_element_by_id('txtPWD').send_keys(userId)
+driver.find_element_by_id('txtPWD').send_keys(userPw)
 driver.find_element_by_class_name('button01').click()
+
+time.sleep(0.5) #페이지가 제대로 열릴때 까지 기다림
+
+xpath = "//img[@src='https://ssl.nx.com/s2/game/kart/v2/community/btn_write.gif']"
+
+driver.find_element_by_xpath(xpath).click()
