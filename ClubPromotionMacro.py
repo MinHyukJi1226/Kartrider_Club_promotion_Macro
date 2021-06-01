@@ -22,8 +22,34 @@ driver.find_element_by_id('txtNexonID').send_keys(userId)
 driver.find_element_by_id('txtPWD').send_keys(userPw)
 driver.find_element_by_class_name('button01').click()
 
-time.sleep(0.5) #페이지가 제대로 열릴때 까지 기다림
+time.sleep(0.8) #페이지가 제대로 열릴때 까지 기다림
 
 xpath = "//img[@src='https://ssl.nx.com/s2/game/kart/v2/community/btn_write.gif']"
 
 driver.find_element_by_xpath(xpath).click()
+
+time.sleep(0.5)
+
+title = "(매우빠름) Lv.2 Realize 길드원 모집"
+
+driver.find_element_by_name('ctl00$ContentPlaceHolder1$m_txtTitle').send_keys(title)
+
+time.sleep(0.5)
+
+driver.find_element_by_class_name('uploadImage').click()
+
+driver.switch_to.window(driver.window_handles[-1]) # 새로운 창으로 변경
+
+time.sleep(0.5)
+
+xpath = "//input[@type = 'file']"
+
+driver.find_element_by_xpath(xpath).send_keys("C:/Users/Minhyuk/Downloads/img.png")
+
+driver.find_element_by_id('btnUpload').click()
+
+driver.switch_to.window(driver.window_handles[0]) # 원래 창으로 변경
+
+time.sleep(1)
+
+driver.find_element_by_id('ContentPlaceHolder1_btnWrite').click()
