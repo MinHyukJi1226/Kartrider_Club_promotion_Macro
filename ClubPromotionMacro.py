@@ -1,3 +1,4 @@
+from tkinter.font import families
 from typing import Collection
 from selenium import webdriver
 from selenium.webdriver.common import keys
@@ -56,32 +57,38 @@ def runMecro():
 
     driver.find_element_by_id('ContentPlaceHolder1_btnWrite').click()
 
+    xpath="//img[@src='https://ssl.nx.com/s2/game/kart/v2/community/btn_list.gif']"
+
+    driver.find_element_by_xpath(xpath).click()
+
+    time.sleep(1)
+
 root = Tk()
 root.title("카트라이더 클럽 홍보 프로그램")
+root.resizable(False, False)
 
 title = Label(root, text="카트라이더 클럽 홍보 매크로")
 
-idLable = Label(root, text="아이디 :")
-pwLable = Label(root, text="비밀번호 :" )
-titleLable = Label(root, text="게시물 제목 : ")
+idLable = Label(root, text="아이디")
+pwLable = Label(root, text="비밀번호" )
+titleLable = Label(root, text="게시물 제목")
 
 idTxt = Entry(root, width=30)
 pwTxt = Entry(root, width=30)
 titleTxt = Entry(root, width=30)
-
 pwTxt.config(show='*')
 
 photo = Button(root, text="사진 업로드")
 run = Button(root, text="실행", command = lambda : runMecro())
 
-title.grid(row=0, column=1)
-idLable.grid(row=1, column=0)
-idTxt.grid(row=1, column=1)
-pwLable.grid(row=2, column=0)
-pwTxt.grid(row=2, column=1)
-titleLable.grid(row=3, column=0)
-titleTxt.grid(row=3, column=1)
-photo.grid(row=4, column=0)
-run.grid(row=4, column=1)
+title.pack(pady=10)
+idLable.pack(pady=8)
+idTxt.pack(padx=10)
+pwLable.pack(pady=8)
+pwTxt.pack(padx=10)
+titleLable.pack(pady=8)
+titleTxt.pack(padx=10)
+photo.pack(pady=10)
+run.pack()
 
 root.mainloop()
