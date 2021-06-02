@@ -1,19 +1,28 @@
-from tkinter.font import families
 from typing import Collection
 from selenium import webdriver
 from selenium.webdriver.common import keys
 from selenium.webdriver.common.keys import Keys
 from tkinter import *
+from tkinter import filedialog
 import time
 
 from selenium.webdriver.remote import command
 from urllib3.packages.six import u
+
+root = Tk()
+root.title("카트라이더 클럽 홍보 프로그램")
+root.resizable(False, False)
+
+def addFile():
+    file = filedialog.askopenfilename(title="이미지 파일을 선택하세요", filetypes=(("PNG 파일", "*.png"), ("GIF 파일", "*.gif"), ("JPG 파일", "*.jpg"), ("BMP 파일", "*.bmp")))
+    photoLabel.config(text=file)
 
 def runMecro():
 
     userId = idTxt.get()
     userPw = pwTxt.get()
     postTitle = titleTxt.get()
+    photo = photoLabel.cget("text")
 
     driver = webdriver.Chrome()
     url = 'https://kart.nexon.com/Kart/Guild/Story/List.aspx'
@@ -47,7 +56,8 @@ def runMecro():
 
     xpath = "//input[@type = 'file']"
 
-    driver.find_element_by_xpath(xpath).send_keys("C:/Users/Minhyuk/Downloads/img.png")
+    # driver.find_element_by_xpath(xpath).send_keys("C:/Users/Minhyuk/Downloads/img.png")
+    driver.find_element_by_xpath(xpath).send_keys(photo)
 
     driver.find_element_by_id('btnUpload').click()
 
@@ -63,10 +73,6 @@ def runMecro():
 
     time.sleep(1)
 
-root = Tk()
-root.title("카트라이더 클럽 홍보 프로그램")
-root.resizable(False, False)
-
 title = Label(root, text="카트라이더 클럽 홍보 매크로")
 
 idLable = Label(root, text="아이디")
@@ -78,8 +84,9 @@ pwTxt = Entry(root, width=30)
 titleTxt = Entry(root, width=30)
 pwTxt.config(show='*')
 
-photo = Button(root, text="사진 업로드")
-run = Button(root, text="실행", command = lambda : runMecro())
+photo = Button(root, text="사진 업로드", command=addFile)
+photoLabel = Label(root, text="")
+run = Button(root, text="실행", command=runMecro)
 
 title.pack(pady=10)
 idLable.pack(pady=8)
@@ -89,6 +96,7 @@ pwTxt.pack(padx=10)
 titleLable.pack(pady=8)
 titleTxt.pack(padx=10)
 photo.pack(pady=10)
+photoLabel.pack(pady=5)
 run.pack()
 
 root.mainloop()
